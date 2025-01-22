@@ -1,4 +1,4 @@
-scms:
+scm:
   owner: 'mprochowski'
   repository: 'k3s-cluster-gitops'
   branch: main
