@@ -1,0 +1,44 @@
+name: argoproj/argo-cd
+
+sources:
+  latestVersion:
+    name: 'argoproj/argo-cd: checking github releases'
+    kind: githubrelease
+    spec:
+      owner: argoproj
+      repository: argo-cd
+      token: '{{ or (env "PAT") .github.token "invalid-token" }}'
+      username: '{{ or (env "GH_USER") .github.username "invalid-user" }}'
+      versionfilter:
+        kind: semver
+    transformers:
+      - trimprefix: 'v'
+
+targets:
+  default:
+    name: 'argoproj/argo-cd: bump version to {{ source "latestVersion" }}'
+    kind: yaml
+    scmid: default
+    sourceid: latestVersion
+    spec:
+      key: $.appVersion
+      file: charts/0-bootstrap/argocd/Chart.yaml
+
+scms:
+  default:
+    kind: github
+    spec:
+      branch: '{{ .scm.branch }}'
+      owner: '{{ .scm.owner }}'
+      repository: '{{ .scm.repository }}'
+      user: '{{ .scm.user }}'
+      hidecredit: '{{ .scm.hidecredit }}'
+      username: '{{ or (env "GH_USER") .github.username "invalid-user" }}'
+      token: '{{ or (env "PAT") .github.token "invalid-token" }}'
+
+actions:
+  default:
+    kind: 'github/pullrequest'
+    scmid: default
+    spec:
+      title: 'argoproj/argo-cd: bump version to {{ source "latestVersion" }}'
