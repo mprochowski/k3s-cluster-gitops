@@ -1,0 +1,6 @@
+scms:
+  owner: 'mprochowski'
+  repository: 'k3s-cluster-gitops'
+  branch: main
+  user: 'updatecli-bot'
+  hidecredit: true

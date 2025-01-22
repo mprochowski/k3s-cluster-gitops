@@ -1,0 +1,33 @@
+name: KubeLinter
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Run KubeLinter on `0-bootstrap` directory
+        uses: stackrox/kube-linter-action@v1
+        with:
+          directory: 0-bootstrap
+          config: .kube-linter/config.yaml
+      - name: Run KubeLinter on `1-infrastructure` directory
+        uses: stackrox/kube-linter-action@v1
+        with:
+          directory: 1-infrastructure
+          config: .kube-linter/config.yaml
+      - name: Run KubeLinter on `2-services` directory
+        uses: stackrox/kube-linter-action@v1
+        with:
+          directory: 2-services
+          config: .kube-linter/config.yaml
+      - name: Run KubeLinter on `3-applications` directory
+        uses: stackrox/kube-linter-action@v1
+        with:
+          directory: 3-applications
+          config: .kube-linter/config.yaml
