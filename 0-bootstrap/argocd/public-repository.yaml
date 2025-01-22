@@ -1,0 +1,13 @@
+---
+# Source: argocd/templates/public-repository.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: k3s-cluster-gitops-repository
+  namespace: argocd
+  labels:
+    argocd.argoproj.io/secret-type: repository
+stringData:
+  type: git
+  name: k3s-cluster-gitops
+  url: https://github.com/mprochowski/k3s-cluster-gitops

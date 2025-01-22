@@ -1,0 +1,32 @@
+---
+# Source: argocd/templates/kustomization.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: argocd
+resources:
+  - namespace.yaml
+  - https://raw.githubusercontent.com/argoproj/argo-cd/v2.13.3/manifests/install.yaml
+  - public-repository.yaml
+
+patches:
+  - patch: |-
+      - op: add
+        path: /data
+        value:
+          kustomize.buildOptions: "--enable-helm"
+    target:
+      kind: ConfigMap
+      name: argocd-cm
+  - patch: |-
+      - op: add
+        path: /data
+        value:
+          server.insecure: "true"
+          controller.log.level: "warn"
+          server.log.level: "warn"
+          reposerver.log.level: "warn"
+          applicationsetcontroller.log.level: "warn"
+          notificationscontroller.log.level: "warn"
+    target:
+      kind: ConfigMap
+      name: argocd-cmd-params-cm
