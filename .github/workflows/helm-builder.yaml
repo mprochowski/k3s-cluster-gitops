@@ -38,17 +38,12 @@ jobs:
         with:
           version: '3.17.0'
       - name: Build descriptors
-#        working-directory: ./charts
         run: |
-          echo $PWD
-          echo ls -al .
           for file in $(find charts -mindepth 2 -maxdepth 2 -type d)
           do
             appName="$(basename $file)"
             distPath="$(echo $file | sed "s|charts\/\(.*\)\/[A-Za-z\-]*$|\1|")"
           
-            echo $file
-
             helm template $(basename $file) $file --output-dir $distPath
             mv $distPath/$appName/templates/* $distPath/$appName
           done
