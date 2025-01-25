@@ -22,7 +22,7 @@ targets:
     sourceid: latestVersion
     spec:
       key: $.appVersion
-      file: charts/0-bootstrap/argocd/Chart.yaml
+      file: .charts/0-bootstrap/argocd/Chart.yaml
 
 scms:
   default:

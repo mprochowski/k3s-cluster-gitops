@@ -21,7 +21,7 @@ targets:
     sourceid: latestVersion
     spec:
       key: $.appVersion
-      file: charts/1-infrastructure/metallb/Chart.yaml
+      file: .charts/1-infrastructure/metallb/Chart.yaml
 
 scms:
   default:
