@@ -2,7 +2,6 @@ name: metallb/metallb
 
 sources:
   latestVersion:
-    name: 'metallb/metallb: checking github releases'
     kind: githubrelease
     spec:
       owner: metallb
@@ -12,7 +11,7 @@ sources:
       versionfilter:
         kind: semver
     transformers:
-      - trimprefix: "v"
+      - trimprefix: 'v'
 
 targets:
   appVersion:
