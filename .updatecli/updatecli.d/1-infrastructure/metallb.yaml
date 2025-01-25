@@ -1,0 +1,44 @@
+name: metallb/metallb
+
+sources:
+  latestVersion:
+    name: 'metallb/metallb: checking github releases'
+    kind: githubrelease
+    spec:
+      owner: metallb
+      repository: metallb
+      token: '{{ or (env "PAT") .github.token "invalid-token" }}'
+      username: '{{ or (env "GH_USER") .github.username "invalid-user" }}'
+      versionfilter:
+        kind: semver
+    transformers:
+      - trimprefix: "v"
+
+targets:
+  appVersion:
+    name: 'metallb/metallb: bump version to {{ source "latestVersion" }}'
+    kind: yaml
+    scmid: default
+    sourceid: latestVersion
+    spec:
+      key: $.appVersion
+      file: charts/1-infrastructure/metallb/Chart.yaml
+
+scms:
+  default:
+    kind: github
+    spec:
+      branch: '{{ .scm.branch }}'
+      owner: '{{ .scm.owner }}'
+      repository: '{{ .scm.repository }}'
+      user: '{{ .scm.user }}'
+      hidecredit: '{{ .scm.hidecredit }}'
+      username: '{{ or (env "GH_USER") .github.username "invalid-user" }}'
+      token: '{{ or (env "PAT") .github.token "invalid-token" }}'
+
+actions:
+  default:
+    kind: 'github/pullrequest'
+    scmid: default
+    spec:
+      title: 'metallb/metallb: bump version to {{ source "latestVersion" }}'
