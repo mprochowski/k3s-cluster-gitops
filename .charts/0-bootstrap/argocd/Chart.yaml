@@ -3,4 +3,4 @@ name: argocd
 description: Argo CD
 type: application
 version: 0.1.0
-appVersion: 2.13.3
+appVersion: 2.13.4
