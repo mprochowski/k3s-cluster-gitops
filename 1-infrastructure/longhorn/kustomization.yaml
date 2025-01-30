@@ -1,0 +1,15 @@
+---
+# Source: longhorn/templates/kustomization.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: longhorn-system
+resources:
+  - https://raw.githubusercontent.com/longhorn/longhorn/v1.8.0/deploy/longhorn.yaml
+
+patches:
+  - patch: |-
+      - op: replace
+        path: /metadata/labels/app.kubernetes.io~1instance
+        value: 1-longhorn
+    target:
+      kind: CustomResourceDefinition
