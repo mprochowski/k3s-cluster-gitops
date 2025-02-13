@@ -1,0 +1,44 @@
+name: cert-manager/cert-manager
+
+sources:
+  latestVersion:
+    name: 'cert-manager/cert-manager: checking github releases'
+    kind: githubrelease
+    spec:
+      owner: cert-manager
+      repository: cert-manager
+      token: '{{ or (env "PAT") .github.token "invalid-token" }}'
+      username: '{{ or (env "GH_USER") .github.username "invalid-user" }}'
+      versionfilter:
+        kind: semver
+    transformers:
+      - trimprefix: 'v'
+
+targets:
+  default:
+    name: 'cert-manager/cert-manager: bump version to {{ source "latestVersion" }}'
+    kind: yaml
+    scmid: default
+    sourceid: latestVersion
+    spec:
+      key: $.appVersion
+      file: .charts/2-services/cert-manager/Chart.yaml
+
+scms:
+  default:
+    kind: github
+    spec:
+      branch: '{{ .scm.branch }}'
+      owner: '{{ .scm.owner }}'
+      repository: '{{ .scm.repository }}'
+      user: '{{ .scm.user }}'
+      hidecredit: '{{ .scm.hidecredit }}'
+      username: '{{ or (env "GH_USER") .github.username "invalid-user" }}'
+      token: '{{ or (env "PAT") .github.token "invalid-token" }}'
+
+actions:
+  default:
+    kind: 'github/pullrequest'
+    scmid: default
+    spec:
+      title: 'cert-manager/cert-manager: bump version to {{ source "latestVersion" }}'
