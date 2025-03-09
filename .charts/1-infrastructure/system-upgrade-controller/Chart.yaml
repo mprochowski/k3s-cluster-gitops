@@ -3,4 +3,4 @@ name: system-upgrade-controller
 description: system-upgrade-controller
 type: application
 version: 1.0.0
-appVersion: 0.15.1
+appVersion: 0.15.2
