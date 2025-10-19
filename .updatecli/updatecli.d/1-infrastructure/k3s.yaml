@@ -11,7 +11,7 @@ sources:
       username: '{{ or (env "GH_USER") .github.username "invalid-user" }}'
       versionFilter:
         kind: regex
-        pattern: "v1.32.(\\d*).k3s(\\d)$"
+        pattern: "v1.33.(\\d*).k3s(\\d)$"
 
 targets:
   default:
