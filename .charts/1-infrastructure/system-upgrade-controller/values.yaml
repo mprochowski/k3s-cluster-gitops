@@ -1,2 +1,2 @@
 kubernetes:
-  version: v1.33.5+k3s1
+  version: v1.33.6+k3s1
