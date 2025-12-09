@@ -3,4 +3,4 @@ name: metallb
 description: MetalLB
 type: application
 version: 1.0.0
-appVersion: 0.15.2
+appVersion: 0.15.3
