@@ -30,3 +30,11 @@ patches:
     target:
       kind: ConfigMap
       name: argocd-cmd-params-cm
+  - patch: |-
+      - op: add
+        path: /metadata/annotations
+        value:
+          ignore-check.kube-linter.io/liveness-port: 'External resource.'
+    target:
+      kind: Deployment
+      name: argocd-notifications-controller
