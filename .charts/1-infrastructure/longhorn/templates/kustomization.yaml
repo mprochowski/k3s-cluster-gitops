@@ -12,3 +12,20 @@ patches:
         value: 1-longhorn
     target:
       kind: CustomResourceDefinition
+  - patch: |-
+      - op: add
+        path: /metadata/annotations
+        value:
+          ignore-check.kube-linter.io/dangling-service: 'External resource.'
+    target:
+      kind: Service
+      name: longhorn-admission-webhook|longhorn-recovery-backend
+  - patch: |-
+      - op: add
+        path: /metadata/annotations
+        value:
+          ignore-check.kube-linter.io/privilege-escalation-container: 'External resource.'
+          ignore-check.kube-linter.io/privileged-container: 'External resource.'
+    target:
+      kind: DaemonSet
+      name: longhorn-manager
