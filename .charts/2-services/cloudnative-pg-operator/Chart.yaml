@@ -1,0 +1,9 @@
+apiVersion: v2
+name: cloudnative-pg-operator
+description: CloudNativePG Operator
+type: application
+version: 1.0.0
+appVersion: 0.29.1
+readme:
+  link: https://cloudnative-pg.io/
+  latestVersion: https://img.shields.io/github/v/release/cloudnative-pg/cloudnative-pg?display_name=tag&label=%20&style=flat-square
